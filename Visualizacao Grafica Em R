@@ -1,0 +1,80 @@
+### scripts/01_carregar_dados.R
+
+# Carregar pacotes necessários
+library(readr)
+
+# Carregar dados de exemplo (substituir pelo seu dataset)
+dados <- read_csv("data/dados_visualizacao.csv")
+
+# Verificar as primeiras linhas
+glimpse(dados)
+
+
+### scripts/02_graficos_basicos.R
+
+library(ggplot2)
+
+# Gráfico de barras: contagem por categoria
+ ggplot(dados, aes(x = categoria)) +
+  geom_bar(fill = "steelblue") +
+  labs(title = "Distribuição por Categoria", x = "Categoria", y = "Contagem") +
+  theme_minimal()
+
+# Gráfico de linhas: tendência ao longo do tempo
+ ggplot(dados, aes(x = data, y = valor)) +
+  geom_line(color = "darkgreen") +
+  labs(title = "Tendência de Valor ao Longo do Tempo", x = "Data", y = "Valor") +
+  theme_minimal()
+
+
+### scripts/03_graficos_avancados.R
+
+# Boxplot comparando valores por grupo
+ ggplot(dados, aes(x = grupo, y = valor, fill = grupo)) +
+  geom_boxplot() +
+  labs(title = "Distribuição de Valores por Grupo", x = "Grupo", y = "Valor") +
+  theme_minimal()
+
+# Gráfico de dispersão com cor por grupo
+ ggplot(dados, aes(x = variavel_x, y = variavel_y, color = grupo)) +
+  geom_point(size = 2) +
+  labs(title = "Dispersão entre Variáveis", x = "Variável X", y = "Variável Y") +
+  theme_minimal()
+
+
+### README.md
+
+# Projeto de Visualização Gráfica em R
+
+Este projeto mostra como gerar gráficos informativos e bonitos usando R e `ggplot2`.
+
+## Estrutura
+
+```
+visualizacao_grafica/
+├── data/
+│   └── dados_visualizacao.csv      # Dados de exemplo para gráficos
+├── scripts/
+│   ├── 01_carregar_dados.R         # Carregar e explorar dados
+│   ├── 02_graficos_basicos.R       # Gráficos de barras e linhas
+│   └── 03_graficos_avancados.R     # Boxplot e dispersão
+└── README.md
+```
+
+## Gráficos incluídos
+
+- Barras (categorias)
+- Linhas (tendência temporal)
+- Boxplots (distribuições)
+- Dispersão (relações entre variáveis)
+
+## Como usar
+
+1. Coloque seu arquivo CSV em `data/dados_visualizacao.csv`
+2. Rode os scripts em sequência
+3. Adapte os gráficos conforme necessário
+
+## Requisitos
+
+- R >= 4.0
+- Pacotes: `ggplot2`, `readr`
