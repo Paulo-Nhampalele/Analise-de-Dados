@@ -1,0 +1,98 @@
+### scripts/01_importacao.R
+
+# Carregar pacotes
+library(readr)
+
+# Importar dados (exemplo fictício)
+dados <- read_csv("data/dados_exemplo.csv")
+
+# Verificar as primeiras linhas
+head(dados)
+
+
+### scripts/02_exploracao.R
+
+# Estrutura dos dados
+str(dados)
+
+# Sumário estatístico
+summary(dados)
+
+# Verificar valores ausentes
+colSums(is.na(dados))
+
+
+### scripts/03_visualizacao.R
+
+library(ggplot2)
+
+# Histograma da idade
+ggplot(dados, aes(x = idade)) +
+  geom_histogram(binwidth = 5, fill = "steelblue", color = "black") +
+  theme_minimal()
+
+# Gráfico de dispersão entre idade e renda
+ggplot(dados, aes(x = idade, y = renda)) +
+  geom_point(color = "darkred") +
+  theme_minimal()
+
+
+### scripts/04_analise_estatistica.R
+
+# Correlação entre idade e renda
+cor.test(dados$idade, dados$renda, use = "complete.obs")
+
+# Regressão linear simples
+modelo <- lm(renda ~ idade, data = dados)
+summary(modelo)
+
+
+### scripts/05_exportacao.R
+
+# Criar pasta se não existir
+if (!dir.exists("resultados")) dir.create("resultados")
+
+# Exportar resultados do modelo
+sink("resultados/resumo_modelo.txt")
+summary(modelo)
+sink()
+
+# Salvar dados limpos
+write.csv(dados, "data/dados_limpos.csv", row.names = FALSE)
+
+
+### README.md
+
+# Projeto de Análise de Dados em R
+
+Este repositório contém um projeto básico de análise de dados com R, dividido em etapas modulares para facilitar a compreensão e reutilização.
+
+## Estrutura dos diretórios
+
+```
+analise_dados/
+├── data/
+│   └── dados_exemplo.csv         # Dados de entrada
+├── scripts/
+│   ├── 01_importacao.R           # Importação de dados
+│   ├── 02_exploracao.R           # Exploração inicial
+│   ├── 03_visualizacao.R         # Visualizações básicas
+│   ├── 04_analise_estatistica.R  # Análises estatísticas
+│   └── 05_exportacao.R           # Exportação de resultados
+├── resultados/
+│   └── resumo_modelo.txt         # Resultados da regressão
+└── README.md
+```
+
+## Como usar
+
+1. Coloque seus dados no diretório `data/`.
+2. Execute os scripts na ordem indicada.
+3. Verifique os resultados em `resultados/`.
+
+## Requisitos
+
+- R >= 4.0
+- Pacotes: `readr`, `ggplot2`
+
+##Paulo Nhampalele
